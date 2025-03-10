@@ -6,6 +6,7 @@ import {
   ListPromptsRequestSchema,
   GetPromptRequestSchema,
   ListToolsRequestSchema,
+  CallToolRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 
 const server = new Server({
@@ -82,6 +83,13 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
   }
   const response = await req.json();
   return response;
+});
+
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  return {
+    content: [{ type: "text", text: JSON.stringify(request) }],
+    isError: false,
+  };
 });
 
 async function runServer() {
