@@ -35,7 +35,6 @@ server.setRequestHandler(ListPromptsRequestSchema, async () => {
 });
 
 server.setRequestHandler(ListToolsRequestSchema, async () => {
-  process.stderr.write("Handling tools/list request\n");
   /*
   const req = await fetch(`${HOST_URL}/tools`);
   if (!req.ok) {
