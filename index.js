@@ -6,7 +6,6 @@ import {
   ListPromptsRequestSchema,
   GetPromptRequestSchema,
   ListToolsResultSchema,
-  ExecuteToolRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 
 const server = new Server({
