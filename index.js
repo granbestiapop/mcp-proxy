@@ -5,7 +5,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import {
   ListPromptsRequestSchema,
   GetPromptRequestSchema,
-  ListToolsResultSchema,
+  ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 
 const server = new Server({
@@ -33,7 +33,7 @@ server.setRequestHandler(ListPromptsRequestSchema, async () => {
   return prompts;
 });
 
-server.setRequestHandler(ListToolsResultSchema, async () => {
+server.setRequestHandler(ListToolsRequestSchema, async () => {
   process.stderr.write("Handling tools/list request\n");
   /*
   const req = await fetch(`${HOST_URL}/tools`);
