@@ -5,6 +5,8 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import {
   ListPromptsRequestSchema,
   GetPromptRequestSchema,
+  ListToolsResultSchema,
+  ExecuteToolRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 
 const server = new Server({
@@ -30,6 +32,38 @@ server.setRequestHandler(ListPromptsRequestSchema, async () => {
   }
   const prompts = await req.json();
   return prompts;
+});
+
+server.setRequestHandler(ListToolsResultSchema, async () => {
+  process.stderr.write("Handling tools/list request\n");
+  /*
+  const req = await fetch(`${HOST_URL}/tools`);
+  if (!req.ok) {
+    const body = await req.json();
+    throw new Error(
+      `HTTP error! status: ${req.status}, message: ${body.message}`,
+    );
+  }
+  const prompts = await req.json();*/
+  const tools = {
+    tools: [
+      {
+        name: "fetchOpenApi",
+        description: "Fetch OpenAPI ",
+        inputSchema: {
+          type: "object",
+          properties: {
+            appName: {
+              type: "string",
+              description: "appName to get openapi",
+            },
+          },
+          required: ["appName"],
+        },
+      },
+    ],
+  };
+  return tools;
 });
 
 server.setRequestHandler(GetPromptRequestSchema, async (request) => {
