@@ -8,6 +8,7 @@ import {
   ListToolsRequestSchema,
   CallToolRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
+import {handleTools} from "./handlers/tools.js";
 
 const server = new Server({
   name: "mcp-proxy",
@@ -66,7 +67,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 });
 
 server.setRequestHandler(GetPromptRequestSchema, async (request) => {
-  process.stderr.write("Handling prompts/get request\n");
+  process.stderr.write("Handling prompts/get request\n" + JSON.stringify(request, null, 2));
   const req = await fetch(`${HOST_URL}/prompts/execute`, {
     method: "POST",
     headers: {
@@ -84,12 +85,7 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
   return response;
 });
 
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  return {
-    content: [{ type: "text", text: JSON.stringify(request) }],
-    isError: false,
-  };
-});
+server.setRequestHandler(CallToolRequestSchema, handleTools);
 
 async function runServer() {
   console.log("start server");
