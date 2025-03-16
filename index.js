@@ -17,7 +17,10 @@ const server = new Server({
     prompt: true,
   },
 });
-const HOST_URL = process.env.HOST_URL;
+
+const args = process.argv.slice(2);
+const HOST_URL = process.env.HOST_URL || args[0];
+
 if (!HOST_URL) {
   throw new Error("HOST_URL environment variable is not set");
 }
