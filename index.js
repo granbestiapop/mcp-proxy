@@ -8,7 +8,7 @@ import {
   ListToolsRequestSchema,
   CallToolRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import {handleTools} from "./handlers/tools.js";
+import { handleTools } from "./handlers/tools.js";
 
 const server = new Server({
   name: "mcp-proxy",
@@ -34,21 +34,11 @@ server.setRequestHandler(ListPromptsRequestSchema, async () => {
       `HTTP error! status: ${req.status}, message: ${body.message}`,
     );
   }
-  const prompts = await req.json();
-  return prompts;
+  return req.json();
 });
 
 server.setRequestHandler(ListToolsRequestSchema, async () => {
-  /*
-  const req = await fetch(`${HOST_URL}/tools`);
-  if (!req.ok) {
-    const body = await req.json();
-    throw new Error(
-      `HTTP error! status: ${req.status}, message: ${body.message}`,
-    );
-  }
-  const prompts = await req.json();*/
-  const tools = {
+  return {
     tools: [
       {
         name: "fetchOpenApi",
@@ -66,11 +56,12 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
     ],
   };
-  return tools;
 });
 
 server.setRequestHandler(GetPromptRequestSchema, async (request) => {
-  process.stderr.write("Handling prompts/get request\n" + JSON.stringify(request, null, 2));
+  process.stderr.write(
+    "Handling prompts/get request\n" + JSON.stringify(request, null, 2),
+  );
   const req = await fetch(`${HOST_URL}/prompts/execute`, {
     method: "POST",
     headers: {
