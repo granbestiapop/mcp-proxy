@@ -1,9 +1,7 @@
-const HOST_URL = process.env.HOST_URL;
-
-export async function handleTools(request) {
+export async function handleTools(host, request) {
   process.stderr.write("Handling tool/get request\n" + typeof request);
 
-  const req = await fetch(`${HOST_URL}/prompts/execute`, {
+  const req = await fetch(`${host}/prompts/execute`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
