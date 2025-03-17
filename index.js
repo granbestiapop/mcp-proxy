@@ -79,7 +79,9 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
   return response;
 });
 
-server.setRequestHandler(CallToolRequestSchema, handleTools);
+server.setRequestHandler(CallToolRequestSchema, (req) =>
+  handleTools(HOST_URL, req),
+);
 
 async function runServer() {
   console.log("start server");
