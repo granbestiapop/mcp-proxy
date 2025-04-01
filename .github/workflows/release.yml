@@ -34,3 +34,4 @@ jobs:
           file: Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ env.VERSION }}
+          platforms: linux/amd64,linux/arm64
