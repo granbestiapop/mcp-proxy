@@ -29,7 +29,10 @@ Update your sse endpoint
     "mcp-proxy-npx": {
       "command": {
         "path": "npx",
-        "args": ["github:granbestiapop/mcp-proxy"],
+        "args": [
+          "-y",
+          "github:granbestiapop/mcp-proxy"
+        ],
         "env": {
           "HOST_URL": "https://my-server.dev/sse",
           "MCP_AUTH": "secret"
