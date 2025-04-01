@@ -56,7 +56,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
     tools: [
       {
-        name: "fetchOpenApi-tool-example",
+        name: "fetchOpenApi",
         description: "Fetch OpenAPI tools",
         inputSchema: {
           type: "object",
@@ -74,7 +74,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 });
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  console.log("prompts/execute", request);
+  console.log("tools/execute", request);
   return {
     content: [
       {

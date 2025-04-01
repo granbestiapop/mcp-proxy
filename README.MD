@@ -1,8 +1,5 @@
 # MCP Server Proxy
 
-## Zed Configuration
-* Zed only supports STDIO MCP server, we have two alternatives.
-
 ### Docker
 Update your sse endpoint
 ```
@@ -15,6 +12,8 @@ Update your sse endpoint
           "--rm",
           "-e",
           "HOST_URL=http://host.docker.internal:3001/sse",
+          "-e",
+          "MCP_AUTH=secret",
           "-i",
           "mcp-server-proxy"
         ]
@@ -32,9 +31,49 @@ Update your sse endpoint
         "path": "npx",
         "args": ["github:granbestiapop/mcp-proxy"],
         "env": {
-          "HOST_URL": "https://my-server.dev/sse"
+          "HOST_URL": "https://my-server.dev/sse",
+          "MCP_AUTH": "secret"
         }
       },
       "settings": {}
     }
+```
+
+## IDE Extensions
+### Continue.dev / Docker
+```
+mcpServers:
+  - name: testmcp
+    command: docker
+    args:
+      - 'run'
+      - '--rm'
+      - '-i'
+      - '-e'
+      - 'HOST_URL=https://your-mcp-server/sse'
+      - '-e'
+      - 'MCP_AUTH=secret'
+      - 'mcp-server-proxy'
+```
+
+### Zed / Docker
+```
+  "context_servers": {
+    "mcp-proxy-docker": {
+      "command": {
+        "path": "docker",
+        "args": [
+          "run",
+          "--rm",
+          "-i",
+          "-e",
+          "HOST_URL=https://your-mcp-server/sse",
+          "-e",
+          "MCP_AUTH=secret",
+          "mcp-server-proxy"
+        ]
+      },
+      "settings": {}
+    }
+  }
 ```

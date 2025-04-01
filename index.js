@@ -15,12 +15,22 @@ import { URL } from "node:url";
 
 const args = process.argv.slice(2);
 const HOST_URL = process.env.HOST_URL || args[0];
+const TOKEN = process.env.MCP_AUTH;
 
 if (!HOST_URL) {
   throw new Error("HOST_URL environment variable is not set");
 }
+if (!TOKEN) {
+  throw new Error("MCP_AUTH environment variable is not set");
+}
 
-const transport = new SSEClientTransport(new URL(HOST_URL), {});
+const transport = new SSEClientTransport(new URL(HOST_URL), {
+  requestInit: {
+    headers: {
+      Authorization: TOKEN,
+    },
+  },
+});
 
 const client = new Client(
   {
