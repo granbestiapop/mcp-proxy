@@ -15,7 +15,7 @@ Update your sse endpoint
           "-e",
           "MCP_AUTH=secret",
           "-i",
-          "mcp-server-proxy"
+          "ghcr.io/granbestiapop/mcp-proxy:0.0.2"
         ]
       },
       "settings": {}
@@ -56,7 +56,7 @@ mcpServers:
       - 'HOST_URL=https://your-mcp-server/sse'
       - '-e'
       - 'MCP_AUTH=secret'
-      - 'mcp-server-proxy'
+      - 'ghcr.io/granbestiapop/mcp-proxy'
 ```
 
 ### Zed / Docker
@@ -73,7 +73,7 @@ mcpServers:
           "HOST_URL=https://your-mcp-server/sse",
           "-e",
           "MCP_AUTH=secret",
-          "mcp-server-proxy"
+          "ghcr.io/granbestiapop/mcp-proxy"
         ]
       },
       "settings": {}
