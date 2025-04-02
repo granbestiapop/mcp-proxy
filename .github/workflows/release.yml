@@ -33,5 +33,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ env.VERSION }}
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ env.VERSION }}
+            ghcr.io/${{ github.repository }}:latest
           platforms: linux/amd64,linux/arm64
