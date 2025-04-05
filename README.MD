@@ -10,6 +10,7 @@ Update your sse endpoint
         "args": [
           "run",
           "--rm",
+          "--init",
           "-e",
           "HOST_URL=http://host.docker.internal:3001/sse",
           "-e",
@@ -51,6 +52,7 @@ mcpServers:
     args:
       - 'run'
       - '--rm'
+      - '--init'
       - '-i'
       - '-e'
       - 'HOST_URL=https://your-mcp-server/sse'
@@ -68,6 +70,7 @@ mcpServers:
         "args": [
           "run",
           "--rm",
+          "--init",
           "-i",
           "-e",
           "HOST_URL=https://your-mcp-server/sse",
