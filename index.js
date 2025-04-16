@@ -9,10 +9,6 @@ import {
   CallToolRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 
-import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
-import { URL } from "node:url";
-
 const args = process.argv.slice(2);
 const HOST_URL = process.env.HOST_URL || args[0];
 const TOKEN = process.env.MCP_AUTH;
@@ -23,30 +19,6 @@ if (!HOST_URL) {
 if (!TOKEN) {
   throw new Error("MCP_AUTH environment variable is not set");
 }
-
-const transport = new SSEClientTransport(new URL(HOST_URL), {
-  requestInit: {
-    headers: {
-      Authorization: TOKEN,
-    },
-  },
-});
-
-const client = new Client(
-  {
-    name: "example-client",
-    version: "1.0.0",
-  },
-  {
-    capabilities: {
-      prompts: {},
-      resources: {},
-      tools: {},
-    },
-  },
-);
-
-await client.connect(transport);
 
 const server = new Server(
   {
@@ -62,23 +34,49 @@ const server = new Server(
 );
 
 server.setRequestHandler(ListPromptsRequestSchema, async () => {
-  const prompts = await client.listPrompts();
-  return prompts;
+  const response = await fetch(`${HOST_URL}/schema`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: TOKEN,
+    },
+  });
+  return response.json();
 });
 
 server.setRequestHandler(GetPromptRequestSchema, async (request) => {
-  const response = await client.getPrompt(request.params);
-  return response;
+  const response = await fetch(`${HOST_URL}/execute/prompts`, {
+    body: JSON.stringify(request),
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: TOKEN,
+    },
+  });
+  return response.json();
 });
 
 server.setRequestHandler(ListToolsRequestSchema, async (request) => {
-  const response = await client.listTools(request.params);
-  return response;
+  const response = await fetch(`${HOST_URL}/schema`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: TOKEN,
+    },
+  });
+  return response.json();
 });
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  const response = await client.callTool(request.params);
-  return response;
+  const response = await fetch(`${HOST_URL}/execute/tools`, {
+    body: JSON.stringify(request),
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: TOKEN,
+    },
+  });
+  return response.json();
 });
 
 const serverTransport = new StdioServerTransport();
