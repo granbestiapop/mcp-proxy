@@ -35,51 +35,48 @@ const server = new Server(
 
 server.setRequestHandler(ListPromptsRequestSchema, async () => {
   const response = await fetch(`${HOST_URL}/schema`, {
-    body: JSON.stringify(request.params),
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: MCP_AUTH,
+      authorization: TOKEN,
     },
   });
-  return response;
+  return response.json();
 });
 
 server.setRequestHandler(GetPromptRequestSchema, async (request) => {
   const response = await fetch(`${HOST_URL}/execute/prompts`, {
-    body: JSON.stringify(request.params),
+    body: JSON.stringify(request),
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      authorization: MCP_AUTH,
+      authorization: TOKEN,
     },
   });
-  console.log(response);
-  return response;
+  return response.json();
 });
 
 server.setRequestHandler(ListToolsRequestSchema, async (request) => {
   const response = await fetch(`${HOST_URL}/schema`, {
-    body: JSON.stringify(request.params),
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: MCP_AUTH,
+      authorization: TOKEN,
     },
   });
-  return response;
+  return response.json();
 });
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const response = await fetch(`${HOST_URL}/execute/tools`, {
-    body: JSON.stringify(request.params),
+    body: JSON.stringify(request),
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      authorization: MCP_AUTH,
+      authorization: TOKEN,
     },
   });
-  return response;
+  return response.json();
 });
 
 const serverTransport = new StdioServerTransport();
