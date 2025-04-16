@@ -12,11 +12,11 @@ Update your sse endpoint
           "--rm",
           "--init",
           "-e",
-          "HOST_URL=http://host.docker.internal:3001/sse",
+          "HOST_URL=http://host.docker.internal:3001",
           "-e",
           "MCP_AUTH=secret",
           "-i",
-          "ghcr.io/granbestiapop/mcp-proxy:0.0.2"
+          "ghcr.io/granbestiapop/mcp-proxy"
         ]
       },
       "settings": {}
@@ -35,7 +35,7 @@ Update your sse endpoint
           "github:granbestiapop/mcp-proxy"
         ],
         "env": {
-          "HOST_URL": "https://my-server.dev/sse",
+          "HOST_URL": "https://my-server.dev",
           "MCP_AUTH": "secret"
         }
       },
@@ -55,7 +55,7 @@ mcpServers:
       - '--init'
       - '-i'
       - '-e'
-      - 'HOST_URL=https://your-mcp-server/sse'
+      - 'HOST_URL=https://your-mcp-server'
       - '-e'
       - 'MCP_AUTH=secret'
       - 'ghcr.io/granbestiapop/mcp-proxy'
@@ -73,7 +73,7 @@ mcpServers:
           "--init",
           "-i",
           "-e",
-          "HOST_URL=https://your-mcp-server/sse",
+          "HOST_URL=https://your-mcp-server",
           "-e",
           "MCP_AUTH=secret",
           "ghcr.io/granbestiapop/mcp-proxy"
