@@ -83,3 +83,23 @@ mcpServers:
     }
   }
 ```
+
+### Cursor
+
+```
+{
+  "mcpServers": {
+    "justo": {
+      "command": "npx", 
+      "args": [
+        "-y",
+        "github:granbestiapop/mcp-proxy"
+      ],
+      "env": {
+        "HOST_URL": <host url>,
+        "MCP_AUTH" : <brearer jwt>
+      }
+    }
+  }
+}
+```
